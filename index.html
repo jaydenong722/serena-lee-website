@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Serena Lee Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Karla:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* Layout idea: quiet hero, then a slow, uneven scroll of large photographs with wide margins, ending on one plain contact block. */
+  :root {
+    --paper: #e8e2d8;
+    --ink: #2c2723;
+    --muted: #7a7066;
+    --clay: #8f5f4a;
+    --frame: #dcd4c7;
+    --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+    --font-body: "Karla", "Helvetica Neue", Arial, sans-serif;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1f1c19;
+      --ink: #ece5da;
+      --muted: #9b9085;
+      --clay: #d19a82;
+      --frame: #2a2622;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1f1c19;
+    --ink: #ece5da;
+    --muted: #9b9085;
+    --clay: #d19a82;
+    --frame: #2a2622;
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  :focus-visible { outline: 2px solid var(--clay); outline-offset: 4px; }
+
+  h1, h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  /* Hero */
+  .hero {
+    padding: clamp(4rem, 12vh, 8rem) clamp(1.25rem, 6vw, 5rem) clamp(3rem, 8vh, 5rem);
+    display: grid;
+    gap: 2rem;
+    justify-items: start;
+    max-width: 78rem;
+    margin: 0 auto;
+  }
+  .hero h1 {
+    font-size: clamp(3.4rem, 10vw, 8rem);
+    line-height: 0.98;
+  }
+  .hero h1 em { font-style: italic; color: var(--clay); }
+  .hero p {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--muted);
+    max-width: 34ch;
+  }
+  .btn {
+    display: inline-block;
+    font: 500 0.95rem var(--font-body);
+    letter-spacing: 0.04em;
+    color: var(--paper);
+    background: var(--ink);
+    padding: 0.9rem 1.9rem;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.25s ease;
+  }
+  .btn:hover { background: var(--clay); }
+
+  /* Work */
+  .work {
+    max-width: 78rem;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vh, 4rem) clamp(1.25rem, 6vw, 5rem) clamp(4rem, 12vh, 9rem);
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: 1.5rem;
+    row-gap: clamp(5rem, 14vw, 10rem);
+  }
+  figure { display: grid; gap: 0.9rem; }
+  figcaption { font-size: 0.9rem; color: var(--muted); }
+  figcaption b { font-weight: 500; color: var(--ink); }
+
+  /* Photo slots. Replace each .photo with <img src="..." alt="..."> using the same class. */
+  .photo {
+    display: block;
+    width: 100%;
+    background-color: var(--frame);
+    background-size: cover;
+    background-position: center;
+  }
+  .photo.p1 { aspect-ratio: 3 / 2; background-image:
+    radial-gradient(ellipse at 70% 30%, #f1d9bf 0, transparent 55%),
+    linear-gradient(160deg, #cdb8a0, #8f7662); }
+  .photo.p2 { aspect-ratio: 4 / 5; background-image:
+    radial-gradient(ellipse at 30% 25%, #e9dccb 0, transparent 60%),
+    linear-gradient(200deg, #a9b0a0, #5f6b5c); }
+  .photo.p3 { aspect-ratio: 2 / 3; object-fit: cover; background-image:
+    radial-gradient(ellipse at 60% 20%, #f3e3d3 0, transparent 55%),
+    linear-gradient(180deg, #d4b5a5, #94685a); }
+  .photo.p4 { aspect-ratio: 16 / 9; background-image:
+    radial-gradient(ellipse at 20% 70%, #efdcc4 0, transparent 50%),
+    linear-gradient(120deg, #b9a58f, #6e5e50); }
+  .photo.p5 { aspect-ratio: 1 / 1; background-image:
+    radial-gradient(ellipse at 50% 35%, #e6d7c6 0, transparent 60%),
+    linear-gradient(170deg, #9aa3a8, #55606a); }
+
+  .f1 { grid-column: 1 / span 9; }
+  .f2 { grid-column: 8 / span 5; }
+  .f3 { grid-column: 2 / span 5; }
+  .f4 { grid-column: 1 / -1; }
+  .f5 { grid-column: 5 / span 6; }
+
+  /* Contact */
+  .contact {
+    border-top: 1px solid var(--frame);
+    padding: clamp(5rem, 14vh, 9rem) clamp(1.25rem, 6vw, 5rem) clamp(5rem, 14vh, 9rem);
+    scroll-margin-top: 0;
+  }
+  .contact-inner { max-width: 78rem; margin: 0 auto; display: grid; gap: 1.5rem; }
+  .contact h2 { font-size: clamp(2.2rem, 6vw, 4.2rem); line-height: 1.05; max-width: 14ch; }
+  .contact p { color: var(--muted); max-width: 42ch; }
+  .email {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.5rem, 4.6vw, 3rem);
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--clay);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+    overflow-wrap: anywhere;
+    width: fit-content;
+  }
+  .email:hover { color: var(--clay); }
+  .copy {
+    font: 500 0.9rem var(--font-body);
+    letter-spacing: 0.04em;
+    background: none;
+    border: 0;
+    padding: 0;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+    width: fit-content;
+  }
+  .copy:hover { color: var(--clay); }
+  footer { margin-top: 4rem; font-size: 0.85rem; color: var(--muted); }
+
+  @media (max-width: 700px) {
+    .work { display: flex; flex-direction: column; row-gap: 4.5rem; }
+    .f2, .f3, .f5 { width: 86%; }
+    .f2, .f5 { align-self: flex-end; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <h1>Serena <em>Lee</em></h1>
+  <p>I photograph weddings and portraits, and the quiet moments in between.</p>
+  <a class="btn" href="#contact">Say hello</a>
+</header>
+
+<main class="work" aria-label="Selected work">
+  <figure class="f1">
+    <div class="photo p1" role="img" aria-label="Wedding photograph placeholder: a couple walking together in soft afternoon light"></div>
+    <figcaption><b>Mei &amp; Daniel</b> &ndash; Wedding, Fort Canning</figcaption>
+  </figure>
+
+  <figure class="f2">
+    <div class="photo p2" role="img" aria-label="Portrait placeholder: a woman by a window in green-grey light"></div>
+    <figcaption><b>Hana</b> &ndash; Portrait, her studio</figcaption>
+  </figure>
+
+  <figure class="f3">
+    <img class="photo p3" src="images/wedding-lakeside.jpg" alt="A bride and groom kiss behind a bouquet of white flowers on a lakeside platform, white floral arrangements around them" width="408" height="612">
+    <figcaption><b>Lakeside wedding</b> &ndash; Wedding</figcaption>
+  </figure>
+
+  <figure class="f4">
+    <div class="photo p4" role="img" aria-label="Wedding photograph placeholder: wide shot of a reception at dusk"></div>
+    <figcaption><b>Evening reception</b> &ndash; Wedding, Dempsey Hill</figcaption>
+  </figure>
+
+  <figure class="f5">
+    <div class="photo p5" role="img" aria-label="Portrait placeholder: a man in cool blue-grey light"></div>
+    <figcaption><b>Jonah</b> &ndash; Portrait, East Coast Park</figcaption>
+  </figure>
+</main>
+
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact-inner">
+    <h2 id="contact-title">Tell me about your day.</h2>
+    <p>Send a note with your date, your place and a little about the two of you, or about the portrait you have in mind. I reply within two days.</p>
+    <a class="email" id="email" href="mailto:hello@serenalee.com">hello@serenalee.com</a>
+    <button class="copy" id="copy" type="button">Copy address</button>
+    <footer>&copy; 2026 Serena Lee</footer>
+  </div>
+</section>
+
+<script>
+  document.getElementById('copy').addEventListener('click', function () {
+    var btn = this;
+    var addr = document.getElementById('email').textContent;
+    function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = 'Copy address'; }, 2000); }
+    try {
+      navigator.clipboard.writeText(addr).then(function () { done('Copied'); }, function () { done('Select the address above'); });
+    } catch (e) { done('Select the address above'); }
+  });
+</script>
+</body>
+</html>
